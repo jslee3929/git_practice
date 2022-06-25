@@ -1,0 +1,175 @@
+# 이름 및 이메일 설정
+    git config --global user.name "(본인 이름)"
+    git config --global user.email "(본인 이메일)"
+
+# 이름 및 이메일 설정 확인
+    git config --global user.name
+    git config --global user.email
+
+# 기본 브랜치명 변경
+    git config --global init.defaultBranch main
+
+# .git 폴더 생성 및 업로드 준비
+    git init
+
+# 폴더 안의 업로드 대상 파일 목록 보여줌
+    git status
+
+# git에 전부 업로드
+    git add .
+
+# git에 file.c만 업로드
+    git add file.c
+
+# 타임캡슐 묻기 (커밋하기)
+    git commit
+
+# 커밋 메시지까지 함께 작성하기
+    git commit -m "FIRST COMMIT"
+
+# 커밋 내역 확인
+    git log
+
+# vi 입력 모드 명령어
+    입력 시작               i       명령어 입력 모드에서 텍스트 입력 모드로 전환
+    입력 종료               ESC	    텍스트 입력 모드에서 명령어 입력 모드로 전환
+    저장 없이 종료          :q
+    저장 없이 강제 종료     :q!     입력한 것이 있을 때 사용
+    저장하고 종료	        :wq 	입력한 것이 있을 때 사용
+    위로 스크롤             k       git log등에서 내역이 길 때 사용
+    아래로 스크롤           j       git log등에서 내역이 길 때 사용
+
+# 수정사항 확인
+    git diff
+
+# 새로 추가된 파일(Untracted)이 없을 경우 add와 commit 한번에 하기
+    git commit -am "메시지"
+
+# 특정 시점으로 reset (이전 커밋 내역 삭제)
+    git reset --hard (해시값)
+
+# 복사해둔 .git 폴더가 있을 경우 마지막 커밋 시점으로 돌아가기
+    git reset --hard
+
+# 특정 시점으로 Revert (이전 커밋을 뒤 시점에 추가)
+    git revert (해시값)
+
+# Revert 하되 Commit 하지 않는 경우
+    # Revert 후 다른 작업 실시 + 커밋하고 싶을 때
+    git revert --no-commit (해시값)
+
+# 새 branch 생성
+    git branch (브랜치명)
+
+# 현재 branch 리스트 확인
+    git branch
+
+# 원하는 branch로 이동
+    git switch (브랜치명)
+
+# branch 생성과 동시에 이동하기
+    git switch -c (브랜치명)
+
+# branch 삭제하기
+    git branch -d (삭제할 브랜치명)
+
+# 브랜치 이름 바꾸기
+    git branch -m (기존 브랜치명) (변경할 브랜치명)
+
+# 지울 브랜치에 다른 브랜치로 적용되지 않은 내용의 커밋이 있을 시
+    # -D (대문자) 옵션으로 강제 삭제
+    git branch -D (브랜치명)
+
+# CLI에서 여러 브랜치 내역 보기
+    git log --all --decorate --oneline --graph
+
+# 브랜치 Merge
+    # 두 branch를 병합
+    # Main branch로 이동 후 아래 명령어 실행
+    git merge (병합할 브랜치명)
+
+    # (예시) Main branch와 add-coach branch 병합
+    # = Main branch로 이동 후 git merge add-coach
+
+# 브랜치 Rebase
+    # 한 branch의 내용을 잘라내어 다른 branch 뒤에 붙임
+    # Merge와 반대로 실행
+    # (예시) Main branch와 new-teams branch 리베이스
+    # = new-teams branch로 이동 후 git merge main
+
+# 병합 후 소스트리에서 상태 확인하면 main branch가 뒤쳐져 있음
+# main branch로 이동 후 git merge new-teams로 fast-forward 해줘야 함
+
+# Merge 시 충돌 해결법
+    # VS Code 상에서 충돌 부분 확인 (붉은 하이라이트)
+    # 원하는 내용 선택 후 저장
+    git add .
+    git commit
+
+# 아래 명령어 입력 시 merge 전 상태로 돌아감
+    git merge --abort
+
+# Rebase 시 충돌 해결법
+# 원하는 내용 선택 후 저장
+    git add .
+    git rebase --continue
+
+# 아래 명령어 입력 시 rebase 전 상태로 돌아감
+    git rebase --abort
+
+# 소스트리에서는 Rebase 시 충돌을 다루기 어려우므로 CLI에서 Rebase를 권장
+
+# 로컬의 Git 저장소에 원격 저장소로의 연결 추가
+    git remote add origin (원격 저장소 주소) 
+
+# GitHub 권장 - 기본 브랜치명을 main으로
+    git branch -M main
+
+# 로컬 저장소의 커밋 내역들 원격으로 push (업로드)
+    # -u 또는 --set-upstream : 현재 브랜치와 명시된 원격 브랜치 기본 연결
+    git push -u origin main
+
+# github에서 clone 다운로드
+    git clone (리포지토리 주소)
+
+# 원격으로 커밋 업로드
+    # 아래 명령어만으로 push 할 수 있는 이유는 이미 git push -u origin main으로 대상 원격 브랜치가 지정되었기 때문
+    git push
+
+# GitHub 상의 작업이 내 작업보다 최신이라면 push 불가능
+# 이 때는 pull한 다음 push
+
+    # merge 방식
+    # origin과 local을 다른 branch로 만든 후 merge한 커밋 생성
+    git pull --no-rebase
+
+    # rebase 방식
+    # origin을 pull한 후 local을 추가한 다음 커밋
+    git pull --rebase
+
+# 협업상 충돌 발생 해결하기
+    git pull --no-rebase OR git pull --rebase
+    => 충돌 해결 => git add . => git commit => git push
+
+# 로컬의 내역 강제 push
+    # 원격의 커밋 내역 삭제됨
+    git push --force
+
+# github에 새로운 branch push하기
+    # from-local이라는 브랜치를 push 하면 오류 발생
+    # origin에는 from-local 브랜치가 없기 때문
+    # 아래 명령어를 입력하여 origin에 branch 생성 및 push
+    git push -u origin from-local
+
+# 원격의 branch 포함하여 열람하기
+    git branch --all
+    git branch -a
+
+# 원격의 변경사항 확인 (branch 변경 등)
+    git fetch
+
+# 로컬에 같은 이름의 브랜치를 생성하여 연결하고 switch
+    git switch -t origin/from-remote
+
+# 원격의 branch 삭제
+    git push (원격 이름) --delete (원격의 브랜치명)
